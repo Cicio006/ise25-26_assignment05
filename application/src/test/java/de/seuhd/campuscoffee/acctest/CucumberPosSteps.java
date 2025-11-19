@@ -105,17 +105,13 @@ public class CucumberPosSteps {
     }
 
     @When("Update one of 3 three existing POS")
-    public void iUpdateThePosWithNameToHaveTheFollowingValues(String name, PosDto updatedPosDto) {
-        PosDto existingPos = retrievePosByName(name);
-        PosDto posToUpdate = existingPos.toBuilder()
-                .name(updatedPosDto.name())
-                .description(updatedPosDto.description())
-                .type(updatedPosDto.type())
-                .campus(updatedPosDto.campus())
-                .street(updatedPosDto.street())
-                .houseNumber(updatedPosDto.houseNumber())
-                .postalCode(updatedPosDto.postalCode())
-                .city(updatedPosDto.city())
+    public void updateOneOfThreeExistingPos(List<PosDto> posList) {
+        PosDto posToUpdate = posList.get(0);
+        PosDto existingPos = retrievePosByName(posToUpdate.name());
+        posToUpdate = posToUpdate.toBuilder()
+                .id(existingPos.id())
+                .createdAt(existingPos.createdAt())
+                .updatedAt(existingPos.updatedAt())
                 .build();
         updatedPos = updatePos(List.of(posToUpdate)).get(0);
     }
@@ -129,12 +125,13 @@ public class CucumberPosSteps {
                 .containsExactlyInAnyOrderElementsOf(createdPosList);
     }
 
-    @Then("the POS with name {string} should have the updated values")
-    public void thePosWithNameShouldHaveTheUpdatedValues(String name) {
-        PosDto retrievedPos = retrievePosByName(name);
-        assertThat(retrievedPos)
+    @Then("the POS with name {string} should have the following values")
+    public void thePosWithNameShouldHaveTheFollowingValues(String name, List<PosDto> expectedList) {
+        PosDto actual = retrievePosByName(name);
+        PosDto expected = expectedList.get(0);
+        assertThat(actual)
                 .usingRecursiveComparison()
                 .ignoringFields("id", "createdAt", "updatedAt")
-                .isEqualTo(updatedPos);
+                .isEqualTo(expected);
     }
 }

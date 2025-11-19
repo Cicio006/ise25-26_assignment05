@@ -15,11 +15,10 @@ Feature: Points of Sale Management
       | name                   | description                      | type            | campus    | street          | houseNumber  | postalCode | city       |
       | Schmelzpunkt           | Great waffles                    | CAFE            | ALTSTADT  | Hauptstraße     | 90           | 69117      | Heidelberg |
       | Bäcker Görtz           | Walking distance to lecture hall | BAKERY          | INF       | Berliner Str.   | 43           | 69120      | Heidelberg |
-      | New Vending Machine    | Use only in case of emergencies  | VENDING_MACHINE | BERGHEIM  | Teststraße   
+      | New Vending Machine    | Use only in case of emergencies  | VENDING_MACHINE | BERGHEIM  | Teststraße      | 99a          | 12345      | Other City |
     When Update one of 3 three existing POS
-      | name                   | description                      | type            | campus    | street          | houseNumber  | postalCode | city       |
-      | Schmelzpunkt           | Great waffles                    | CAFE            | ALTSTADT  | Hauptstraße   
-    (updatePos(updatedPos))
-      | name                   | description                      | type            | campus    | street          | houseNumber  | postalCode | city       |
-      | Schmelzpunkt           | Great waffles                    | ICE_CREAM       | ALTSTADT  | Hauptstraße   
-    Then the POS with name Schmelzpunkt should have the updated values
+      | name         | description     | type      | campus   | street      | houseNumber | postalCode | city       |
+      | Schmelzpunkt | Great Ice cream | CAFE | ALTSTADT | Hauptstraße | 90          | 69117      | Heidelberg |
+    Then the POS with name "Schmelzpunkt" should have the following values
+      | name         | description     | type  | campus   | street      | houseNumber | postalCode | city       |
+      | Schmelzpunkt | Great Ice cream | CAFE  | ALTSTADT | Hauptstraße | 90          | 69117      | Heidelberg |
