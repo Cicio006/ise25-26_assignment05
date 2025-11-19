@@ -91,7 +91,6 @@ public class CucumberPosSteps {
         assertThat(retrievedPosList).isEmpty();
     }
 
-    // TODO: Add Given step for new scenario
     @Given("the following 3 POS exists")
     public void theFollowingThreePosExists(List<PosDto> posList) {
         List<PosDto> createdPos = createPos(posList);
@@ -105,7 +104,6 @@ public class CucumberPosSteps {
         assertThat(createdPosList).size().isEqualTo(posList.size());
     }
 
-    // TODO: Add When step for new scenario
     @When("Update one of 3 three existing POS")
     public void iUpdateThePosWithNameToHaveTheFollowingValues(String name, PosDto updatedPosDto) {
         PosDto existingPos = retrievePosByName(name);
@@ -131,7 +129,6 @@ public class CucumberPosSteps {
                 .containsExactlyInAnyOrderElementsOf(createdPosList);
     }
 
-    // TODO: Add Then step for new scenario
     @Then("the POS with name {string} should have the updated values")
     public void thePosWithNameShouldHaveTheUpdatedValues(String name) {
         PosDto retrievedPos = retrievePosByName(name);
