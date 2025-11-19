@@ -92,7 +92,11 @@ public class CucumberPosSteps {
     }
 
     // TODO: Add Given step for new scenario
-
+    @Given("the following 3 POS exists")
+    public void theFollowingThreePosExists(List<PosDto> posList) {
+        List<PosDto> createdPos = createPos(posList);
+        assertThat(createdPos).size().isEqualTo(3);
+    }
     // When -----------------------------------------------------------------------
 
     @When("I insert POS with the following elements")
@@ -102,7 +106,21 @@ public class CucumberPosSteps {
     }
 
     // TODO: Add When step for new scenario
-
+    @When("Update one of 3 three existing POS")
+    public void iUpdateThePosWithNameToHaveTheFollowingValues(String name, PosDto updatedPosDto) {
+        PosDto existingPos = retrievePosByName(name);
+        PosDto posToUpdate = existingPos.toBuilder()
+                .name(updatedPosDto.name())
+                .description(updatedPosDto.description())
+                .type(updatedPosDto.type())
+                .campus(updatedPosDto.campus())
+                .street(updatedPosDto.street())
+                .houseNumber(updatedPosDto.houseNumber())
+                .postalCode(updatedPosDto.postalCode())
+                .city(updatedPosDto.city())
+                .build();
+        updatedPos = updatePos(List.of(posToUpdate)).get(0);
+    }
     // Then -----------------------------------------------------------------------
 
     @Then("the POS list should contain the same elements in the same order")
@@ -114,4 +132,12 @@ public class CucumberPosSteps {
     }
 
     // TODO: Add Then step for new scenario
+    @Then("the POS with name {string} should have the updated values")
+    public void thePosWithNameShouldHaveTheUpdatedValues(String name) {
+        PosDto retrievedPos = retrievePosByName(name);
+        assertThat(retrievedPos)
+                .usingRecursiveComparison()
+                .ignoringFields("id", "createdAt", "updatedAt")
+                .isEqualTo(updatedPos);
+    }
 }
