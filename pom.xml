@@ -6,7 +6,7 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent/-->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version>
+        <version>3.5.8</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -75,6 +75,8 @@
         <!-- Testing -->
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <cucumber.version>7.31.0</cucumber.version>
+        <!-- https://mvnrepository.com/artifact/org.testcontainers/testcontainers-bom -->
+        <testcontainers.version>1.20.3</testcontainers.version>
 
         <!-- Utilities -->
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
